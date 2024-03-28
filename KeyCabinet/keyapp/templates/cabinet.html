@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Keyname</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Access</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            {% for key in keys %}
+            <tr>
+                <th scope="row">{{key.id}}</th>
+                <td>{{key.keyname}} Key</td>
+                <td>{{key.quantity}}/{{key.total_quantity}}</td>
+                <td><button type="button" class="btn btn-outline-primary mx-1 btn-sm">Take key</button><button type="button" class="btn btn-outline-secondary btn-sm">Put Back</button></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

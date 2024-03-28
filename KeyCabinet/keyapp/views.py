@@ -1,6 +1,7 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, HttpResponse
+from .models import *
 # Create your views here.
 
-def index(request):
-    return render(request, 'keyapp/index.html')
+def cabinet(request):
+    all_keys = Key.objects.all()
+    return render(request, 'cabinet.html', {'keys': all_keys})
