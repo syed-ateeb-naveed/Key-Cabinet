@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+<form action="" method="POST">
+  {% csrf_token %}
+
+  <form>
+    <div class="container-login">
+      <div class="login-box">
+        <div class="login">
+          <h1>LOGIN</h1>
+          <input name="username" type="text" placeholder="Username" />
+          <label for="username" class="login-input-icon">
+            <i class="fa fa-user"></i>
+          </label>
+          <input name="password" type="password" placeholder="Password" />
+          <label for="password" class="login-input-icon">
+            <i class="fa fa-lock"></i>
+          </label>
+          <div class="login-remember">
+            <label class="login-checkbox">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+            </label>
+            <span class="login-remember-text"> &nbsp;&nbsp;Remember </span>
+          </div>
+
+          <button>Login</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  {% endblock %}
+</form>

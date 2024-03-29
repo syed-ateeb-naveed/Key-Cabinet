@@ -20,4 +20,13 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('keyapp.urls')),
+
+        # for events
+    # path('', include("events.urls")),
+
+    
+    # for authenticating users
+    path("members/", include("django.contrib.auth.urls")),
+    # for members app
+    path("members/", include("members.urls")),
 ]
