@@ -19,13 +19,6 @@ class Role(models.Model):
 
     def __str__(self) -> str:
         return self.type
-
-class UserRole(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
-
-    def __str__(self) -> str:
-        return f"{self.user.username} is a {self.role.type}"
     
 class Key(models.Model):
     keyname = models.CharField(max_length=50, unique=True)
@@ -35,6 +28,13 @@ class Key(models.Model):
     def __str__(self) -> str:
         return self.keyname
 
+class UserRole(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f"{self.user.username} is a {self.role.type}"
+    
 class Access(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     key = models.ForeignKey(Key, on_delete=models.CASCADE)
@@ -42,7 +42,9 @@ class Access(models.Model):
     returnDateTime = models.DateTimeField(null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"{self.user.username} obtained {self.key.keyname} key on {self.accessDateTime}"
+        if self.returnDateTime:
+            return f"{self.user.username} obtained {self.key.keyname} key on {self.accessDateTime.strftime('%d/%m/%Y %I:%M:%S %p')} and returned it on {self.returnDateTime.strftime('%d/%m/%Y %I:%M:%S %p')}"
+        return f"{self.user.username} obtained {self.key.keyname} key on {self.accessDateTime.strftime('%d/%m/%Y %I:%M:%S %p')}"
     
 class Permission(models.Model):
     READ = 'Read'
@@ -51,7 +53,7 @@ class Permission(models.Model):
         (READ, 'Read'),
         (Write, 'Write'),
     ]
-    level = models.CharField(max_length=10, choices=levels, unique=True)
+    level = models.CharField(max_length=10, default='Read' ,choices=levels)
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     key = models.ForeignKey(Key, on_delete=models.CASCADE)
 

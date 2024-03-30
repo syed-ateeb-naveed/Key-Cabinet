@@ -19,10 +19,23 @@
                 <th scope="row">{{key.id}}</th>
                 <td>{{key.keyname}} Key</td>
                 <td>{{key.quantity}}/{{key.total_quantity}}</td>
-                <td><button type="button" class="btn btn-outline-primary mx-1 btn-sm">Take key</button><button type="button" class="btn btn-outline-secondary btn-sm">Put Back</button></td>
+                <td>
+                    <form action="{% url 'take_key' key.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-primary mx-1 btn-sm">Take key</button>
+                    </form>
+                    <form action="{% url 'return_key' key.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-success mx-1 btn-sm">Return key</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
+    </div>
+
+    <div class="text-center my-4">
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
     </div>
 {% endblock %}
